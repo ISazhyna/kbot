@@ -1,8 +1,12 @@
-FROM golang:1.22.1 as builder
+FROM quay.io/projectquay/golang:1.20 as builder
+
+ARG arch
+ARG os
+
 
 WORKDIR /go/src/app
 COPY . .
-RUN make build
+RUN make build TARGET=${os} ARCH=${arch}
 
 FROM scratch
 WORKDIR /
